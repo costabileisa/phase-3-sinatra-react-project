@@ -24,12 +24,18 @@ class ApplicationController < Sinatra::Base
 
   post "/dogs" do
     breed_id = Breed.find_by(breed: params[:breed]).id
-    dog = Dog.create(
+    dog = Dog.where(
         name: params[:name],
         breed_id: breed_id,
         img_url: params[:img_url],
         img_description: params[:img_description]
-    )
+    ).first_or_create
+    # dog = Dog.create(
+    #     name: params[:name],
+    #     breed_id: breed_id,
+    #     img_url: params[:img_url],
+    #     img_description: params[:img_description]
+    # )
     dog.to_json
   end
 
