@@ -4,7 +4,7 @@ puts "🌱 Seeding spices..."
 Breed.create(
     {
         breed: "Golden Retriever",
-        size: "M"
+        size: "Medium"
     }
 )
 Dog.create([
