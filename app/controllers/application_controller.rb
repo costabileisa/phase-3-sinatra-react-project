@@ -21,4 +21,14 @@ class ApplicationController < Sinatra::Base
     breed.to_json
   end
 
+  post "/dogs" do
+    breed_id = Breed.find_by(breed: params[:breed]).id
+    dog = Dog.create(
+        name: params[:name],
+        breed_id: breed_id,
+        img_url: params[:img_url],
+        img_description: params[:img_description]
+    )
+  end
+
 end
