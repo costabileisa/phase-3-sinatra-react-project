@@ -28,7 +28,8 @@ class ApplicationController < Sinatra::Base
         name: params[:name],
         breed_id: breed_id,
         img_url: params[:img_url],
-        img_description: params[:img_description]
+        img_description: params[:img_description],
+        likes: 0
     ).first_or_create
     dog.to_json
   end
@@ -39,6 +40,15 @@ class ApplicationController < Sinatra::Base
         size: params[:size]
     ).first_or_create
     breed.to_json
+  end
+
+  patch "/dogs/:id" do
+    dog = Dog.find(params[:id])
+    likes = dog.likes
+    dog.update(
+        likes: likes += 1
+    )
+    dog.to_json
   end
 
 end
