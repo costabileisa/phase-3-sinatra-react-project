@@ -4,7 +4,7 @@ class ApplicationController < Sinatra::Base
   # Add your routes here
   get "/dogs" do
     dogs = Dog.all
-    dogs.to_json
+    dogs.to_json(include: :breed)
   end
 
   get "/dogs/:id" do
@@ -12,34 +12,21 @@ class ApplicationController < Sinatra::Base
     dog.to_json
   end
 
-  get "/breeds" do 
-    breeds = Breed.all
-    breeds.to_json
-  end
-
-  get "/breeds/:breed_id" do 
-    breed = Breed.find(params[:breed_id])
-    breed.to_json
-  end
-
   post "/dogs" do
-    breed_id = Breed.find_by(breed: params[:breed]).id
-    dog = Dog.where(
-        name: params[:name],
-        breed_id: breed_id,
-        img_url: params[:img_url],
-        img_description: params[:img_description],
-        likes: 0
-    ).first_or_create
-    dog.to_json
-  end
-
-  post "/breeds" do
-    breed = Breed.where(
-        breed: params[:breed],
-        size: params[:size]
-    ).first_or_create
-    breed.to_json
+    breed = Breed.find_by(breed: params[:breed])
+    if Dog.find(params[:id])
+        ["This dog already exists!"].to_json
+    else
+        dog = Dog.create(
+            name: params[:name],
+            breed_id: breed.id,
+            img_url: params[:img_url],
+            img_description: params[:img_description],
+            likes: 0
+        )
+        dog_to_send = dog.concat(breed)
+        dog_to_send.to_json
+    end
   end
 
   patch "/dogs/:id" do
@@ -48,6 +35,12 @@ class ApplicationController < Sinatra::Base
     dog.update(
         likes: likes += 1
     )
+    dog.to_json
+  end
+
+  delete "/dogs/:id" do
+    dog = Dog.find(params[:id])
+    dog.destroy
     dog.to_json
   end
 
