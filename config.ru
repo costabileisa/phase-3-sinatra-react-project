@@ -12,5 +12,6 @@ end
 use Rack::JSONBodyParser
 
 # Our application
+use DogsController
 use BreedsController
 run ApplicationController
