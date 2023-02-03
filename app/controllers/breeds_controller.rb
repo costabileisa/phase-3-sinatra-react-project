@@ -5,7 +5,7 @@ class BreedsController < ApplicationController
 
     get "/breeds/:breed_id" do 
         breed = Breed.find(params[:breed_id])
-        breed.to_json
+        breed.to_json(include: :dogs)
     end
 
     post "/breeds" do
@@ -13,6 +13,6 @@ class BreedsController < ApplicationController
         breed: params[:breed],
         size: params[:size]
     ).first_or_create
-    breed.to_json
+    breed.to_json(include: :dogs)
   end
 end
