@@ -6,7 +6,7 @@ class DogsController < ApplicationController
     
     get "/dogs/:id" do
         dog = Dog.find(params[:id])
-        dog.to_json
+        dog.to_json(include: :breed)
     end
     
     post "/dogs" do
