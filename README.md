@@ -21,5 +21,5 @@ To satisfy project requirements, full CRUD capability was needed for at least on
 
 [Frontend Repository](https://github.com/costabileisa/phase-3-frontend/commits/main)    
 [Backend Repository](https://github.com/costabileisa/phase-3-sinatra-react-project)    
-[YouTube Link]()    
+[YouTube Link](https://youtu.be/sHPcEWTQ-sk)    
 [Phase 3 Blogpost](https://costabileisa.medium.com/if-else-vs-ternary-vs-switch-e0a32c58f833)
